@@ -40,23 +40,40 @@ class Battlefield:
         combatants = [self.dinosaur, self.robot]
         first_attack = choice(combatants)
         has_no_health = False
+        dino_hit_or_miss_list = ["robot", "robot", "Missed", "robot", "robot", "robot", "robot", "Missed"]
+        bot_hit_or_miss_list = ["dinosaur", "dinosaur", "Missed", "dinosaur", "dinosaur", "dinosaur", "dinosaur", "Missed"]
         while has_no_health == False:
             if first_attack == self.dinosaur:
-                dino_hit_or_miss_list = [self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),print("Missed"),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),print("Missed")]
-                random_attack = choice(dino_hit_or_miss_list)
+                dino_attack_succeed_or_fail = choice(dino_hit_or_miss_list)
+                if dino_attack_succeed_or_fail == "robot":
+                    self.dinosaur.attack(self.robot)
+                else:
+                    print(f"{self.dinosaur.name} {dino_attack_succeed_or_fail}")
                 if self.robot.health == 0:
                     has_no_health = True
                     continue
-                self.robot.attack(self.dinosaur)
+                bot_attack_succeed_or_fail = choice(bot_hit_or_miss_list)
+                if bot_attack_succeed_or_fail == "dinosaur":
+                    self.robot.attack(self.dinosaur)
+                else:
+                    print(f"{self.robot.name} {bot_attack_succeed_or_fail}")
                 if self.dinosaur.health == 0:
                     has_no_health = True
                     continue
             elif first_attack == self.robot:
-                self.robot.attack(self.dinosaur)
+                bot_attack_succeed_or_fail = choice(bot_hit_or_miss_list)
+                if bot_attack_succeed_or_fail == "dinosaur":
+                    self.robot.attack(self.dinosaur)
+                else:
+                    print(f"{self.robot.name} {bot_attack_succeed_or_fail}")
                 if self.dinosaur.health == 0:
                     has_no_health = True
                     continue
-                self.dinosaur.attack(self.robot)
+                dino_attack_succeed_or_fail = choice(dino_hit_or_miss_list)
+                if dino_attack_succeed_or_fail == "robot":
+                    self.dinosaur.attack(self.robot)
+                else:
+                    print(f"{self.dinosaur.name} {dino_attack_succeed_or_fail}")
                 if self.robot.health == 0:
                     has_no_health = True
                     continue
