@@ -7,23 +7,23 @@ class Robot:
         self.active_weapon = active_weapon
     
     def attack(self, dinosaur):
-        print(f"{self.name} used {weapon.name} for {weapon.attack_power} damage!")
-        dinosaur.health -= 100
+        print(f"{self.name} used {weapon.name} on {dinosaur.name} for {weapon.attack_power} damage!")
+        dinosaur.health -= weapon.attack_power
 
 class Dinosaur:
     def __init__(self, name):
         self.name = name
         self.health = 100
-        self.attack_power = 100
+        self.attack_power = 25
 
     def attack(self, robot):
-        print(f"{self.name} used Eyebeam on the robot for {self.attack_power} damage!")
-        robot.health -= 100
+        print(f"{self.name} used Eyebeam on {robot.name} for {self.attack_power} damage!")
+        robot.health -= self.attack_power
 
 class Weapon:
     def __init__(self, name):
         self.name = name
-        self.attack_power = 100
+        self.attack_power = 25
     
 class Battlefield:
     def __init__(self, robot, dinosaur):
@@ -39,11 +39,27 @@ class Battlefield:
     def battle_phase(self):
         combatants = [self.dinosaur, self.robot]
         first_attack = choice(combatants)
-        if first_attack == self.dinosaur:
-            self.dinosaur.attack(self.robot)
-        elif first_attack == self.robot:
-            self.robot.attack(self.dinosaur)
-            
+        has_no_health = False
+        while has_no_health == False:
+            if first_attack == self.dinosaur:
+                dino_hit_or_miss_list = [self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),print("Missed"),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),self.dinosaur.attack(self.robot),print("Missed")]
+                random_attack = choice(dino_hit_or_miss_list)
+                if self.robot.health == 0:
+                    has_no_health = True
+                    continue
+                self.robot.attack(self.dinosaur)
+                if self.dinosaur.health == 0:
+                    has_no_health = True
+                    continue
+            elif first_attack == self.robot:
+                self.robot.attack(self.dinosaur)
+                if self.dinosaur.health == 0:
+                    has_no_health = True
+                    continue
+                self.dinosaur.attack(self.robot)
+                if self.robot.health == 0:
+                    has_no_health = True
+                    continue
 
     def display_winner(self):
         if self.robot.health == 0:
