@@ -61,9 +61,15 @@ class Battlefield:
         Welcome to Bots Vs Dinos!
         ''')
 
+    def choose_team(self):
+        team = input("Will you be a (1)Bot? OR A (2)Dino?")
+        if team == "1":
+            return self.robot
+        elif team == "2":
+            return self.dinosaur
+
     def battle_phase(self):
-        combatants = [self.dinosaur, self.robot]
-        first_attack = choice(combatants)
+        first_attack = self.choose_team()
         has_no_health = False
         dino_hit_or_miss_list = ["robot", "robot", "Missed", "robot", "robot", "robot", "robot", "Missed"]
         bot_hit_or_miss_list = ["dinosaur", "dinosaur", "Missed", "dinosaur", "dinosaur", "dinosaur", "dinosaur", "Missed"]
