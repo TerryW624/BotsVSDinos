@@ -13,7 +13,7 @@ class Robot:
     
     def attack(self, dinosaur):
         weapon = input(f'''
-Tyranozill stands before you. What weapon do you use?
+ stands before you. What weapon do you use?
 (1) {self.active_weapons[0].name}
 (2) {self.active_weapons[1].name}
 (3) {self.active_weapons[2].name}
@@ -28,6 +28,10 @@ Tyranozill stands before you. What weapon do you use?
             print(f"{self.name} used {self.active_weapons[2].name} on {dinosaur.name} for {self.active_weapons[2].attack_power} damage!")
             dinosaur.health -= self.active_weapons[2].attack_power
 
+class Fleet:
+    def __init__(self, bot_one, bot_two, bot_three):
+        self.fleet = [bot_one, bot_two, bot_three]
+
 class Dinosaur:
     def __init__(self, name, ability_one, ability_two, ability_three):
         self.name = name
@@ -36,7 +40,7 @@ class Dinosaur:
 
     def attack(self, robot):
         ability = input(f'''
-Bionic Baron stands before you. What ability do you use?
+ stands before you. What ability do you use?
 (1) {self.attack_powers[0].name}
 (2) {self.attack_powers[1].name}
 (3) {self.attack_powers[2].name}
@@ -50,6 +54,10 @@ Bionic Baron stands before you. What ability do you use?
         elif ability == "3":
             print(f"{self.name} {self.attack_powers[2].name} on {robot.name} for {self.attack_powers[2].attack_power} damage!")
             robot.health -= self.attack_powers[2].attack_power
+
+class Herd:
+    def __init__(self, dino_one, dino_two, dino_three):
+        self.herd = [dino_one, dino_two, dino_three]
     
 class Battlefield:
     def __init__(self, robot, dinosaur):
