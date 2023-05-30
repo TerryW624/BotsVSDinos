@@ -6,19 +6,7 @@ weapon_three = Weapon("Unibeam", 25)
 ability_one = Weapon("Bite", 25)
 ability_two = Weapon("Charging Ram", 25)
 ability_three = Weapon("Tail Whip", 25)
-weapon = input('''
-Tyranozill stands before you. What weapon do you use?
-(1) Gatling Gun
-(2) Buzzsaw
-(3) Unibeam
-''')
-ability = input('''
-Bionic Baron stands before you. What ability do you use?
-(1) Bite
-(2) Charging Ram
-(3) Tail Whip
-''')
-tyranozill = Dinosaur("Tyranozill", ability)
-megabronze = Robot("Bionic Baron", weapon)
+tyranozill = Dinosaur("Tyranozill", ability_one, ability_two, ability_three)
+megabronze = Robot("Bionic Baron", weapon_one, weapon_two, weapon_three)
 battlefield = Battlefield(megabronze, tyranozill)
 battlefield.run_game()

@@ -9,21 +9,47 @@ class Robot:
     def __init__(self, name, weapon_one, weapon_two, weapon_three):
         self.name = name
         self.health = 100
-        self.active_weapon = [weapon_one, weapon_two, weapon_three]
+        self.active_weapons = [weapon_one, weapon_two, weapon_three]
     
     def attack(self, dinosaur):
-        print(f"{self.name} used {self.active_weapon.name} on {dinosaur.name} for {self.active_weapon.attack_power} damage!")
-        dinosaur.health -= self.active_weapon.attack_power
+        weapon = input(f'''
+Tyranozill stands before you. What weapon do you use?
+(1) {self.active_weapons[0].name}
+(2) {self.active_weapons[1].name}
+(3) {self.active_weapons[2].name}
+''')
+        if weapon == "1":
+            print(f"{self.name} used {self.active_weapons[0].name} on {dinosaur.name} for {self.active_weapons[0].attack_power} damage!")
+            dinosaur.health -= self.active_weapons[0].attack_power
+        elif weapon == "2":
+            print(f"{self.name} used {self.active_weapons[1].name} on {dinosaur.name} for {self.active_weapons[1].attack_power} damage!")
+            dinosaur.health -= self.active_weapons[1].attack_power
+        elif weapon == "3":
+            print(f"{self.name} used {self.active_weapons[2].name} on {dinosaur.name} for {self.active_weapons[2].attack_power} damage!")
+            dinosaur.health -= self.active_weapons[2].attack_power
 
 class Dinosaur:
     def __init__(self, name, ability_one, ability_two, ability_three):
         self.name = name
         self.health = 100
-        self.attack_power = [ability_one, ability_two, ability_three]
+        self.attack_powers = [ability_one, ability_two, ability_three]
 
     def attack(self, robot):
-        print(f"{self.name} {self.attack_power} on {robot.name} for {self.attack_power} damage!")
-        robot.health -= self.attack_power
+        ability = input(f'''
+Bionic Baron stands before you. What ability do you use?
+(1) {self.attack_powers[0].name}
+(2) {self.attack_powers[1].name}
+(3) {self.attack_powers[2].name}
+''')
+        if ability == "1":
+            print(f"{self.name} {self.attack_powers[0].name} on {robot.name} for {self.attack_powers[0].attack_power} damage!")
+            robot.health -= self.attack_powers[0].attack_power
+        elif ability == "2":
+            print(f"{self.name} {self.attack_powers[1].name} on {robot.name} for {self.attack_powers[1].attack_power} damage!")
+            robot.health -= self.attack_powers[1].attack_power
+        elif ability == "3":
+            print(f"{self.name} {self.attack_powers[2].name} on {robot.name} for {self.attack_powers[2].attack_power} damage!")
+            robot.health -= self.attack_powers[2].attack_power
     
 class Battlefield:
     def __init__(self, robot, dinosaur):
