@@ -88,7 +88,7 @@ class Battlefield:
     def choose_team(self):
         team = input('''
 Player 1 choose your side of the battlefield. (1)Bots? OR (2)Dinos?
-    ''')
+''')
         if team == "1":
             return self.fleet
         elif team == "2":
@@ -118,72 +118,70 @@ Select your enemy to attack
         groups = [self.p1_group.group, self.p2_group.group]
         for group in groups:
             for dinobot in group:
-                hit_or_miss_list = ["dino or bot", "dino or bot", "Missed", "dino or bot ", "Missed", "dino or bot", "Missed", "dino or bot", "dino or bot", "Missed"]
-                attack_succeed_or_fail = choice(hit_or_miss_list)
-                attack_attempt = False
-                while attack_attempt == False:
-                    if group == groups[0]:
-                        if attack_succeed_or_fail == "dino or bot":
-                            attack_selection = self.p1_select_an_attack()
-                            if attack_selection == "1":
-                                if groups[1][0].health > 0:
+                if dinobot.health == 0:
+                    print(f"{dinobot.name} is dead")
+                    continue
+                if dinobot.health > 0:
+                    hit_or_miss_list = ["dino or bot", "dino or bot", "Missed", "dino or bot", "Missed", "dino or bot", "Missed", "dino or bot", "dino or bot", "Missed"]
+                    attack_succeed_or_fail = choice(hit_or_miss_list)
+                    attack_attempt = False
+                    while attack_attempt == False:
+                        if group == groups[0]:
+                            if attack_succeed_or_fail == "dino or bot":
+                                attack_selection = self.p1_select_an_attack()
+                                if attack_selection == "1" and groups[1][0].health > 0:
                                     dinobot.attack(groups[1][0])
                                     attack_attempt = True
-                                else:
-                                    print(f"{groups[1][0].name} is dead!")
-                                    attack_selection = self.p1_select_an_attack()
-                            elif attack_selection == "2":
-                                if groups[1][1].health > 0:
+                                elif attack_selection == "2" and groups[1][1].health > 0:
                                     dinobot.attack(groups[1][1])
                                     attack_attempt = True
-                                else:
-                                    print(f"{groups[1][1].name} is dead!")
-                                    self.p1_select_an_attack()
-                            elif attack_selection == "3":
-                                if groups[1][2].health > 0:
+                                elif attack_selection == "3" and groups[1][2].health > 0:
                                     dinobot.attack(groups[1][2])
                                     attack_attempt = True
                                 else:
-                                    print(f"{groups[1][2].name} is dead!")
-                                    self.p1_select_an_attack()
-                        else:
-                            print(f"{dinobot.name} {attack_succeed_or_fail}")
-                            attack_attempt = True
-                    if groups[1][0].health == 0 and groups[1][1].health == 0 and groups[1][2].health == 0:
-                        has_no_health = True
-                        continue
-                    if group == groups[1]:
-                        if attack_succeed_or_fail == "dino or bot":
-                            self.p2_select_an_attack()
-                            if attack_selection == "1":
-                                if groups[0][0].health > 0:
+                                    self.p2_group.health -= 100
+                                    if groups[1][0].health > 0 or groups[1][1].health > 0 or groups[1][2].health > 0: 
+                                        print("Target not available")
+                                    else:
+                                        break
+                            else:
+                                print(f"{dinobot.name} {attack_succeed_or_fail}")
+                                attack_attempt = True
+                        elif group == groups[1]:
+                            if attack_succeed_or_fail == "dino or bot":
+                                attack_selection = self.p2_select_an_attack()
+                                if attack_selection == "1" and groups[0][0].health > 0:
                                     dinobot.attack(groups[0][0])
                                     attack_attempt = True
-                                else:
-                                    print(f"{groups[0][0].name} is dead!")
-                                    self.p2_select_an_attack()
-                            elif attack_selection == "2":
-                                if groups[0][1].health > 0:
+                                elif attack_selection == "2" and groups[0][1].health > 0:
                                     dinobot.attack(groups[0][1])
                                     attack_attempt = True
-                                else:
-                                    print(f"{groups[0][1].name} is dead!")
-                                    self.p2_select_an_attack()
-                            elif attack_selection == "3":
-                                if groups[0][2].health > 0:
+                                elif attack_selection == "3" and groups[0][2].health > 0:
                                     dinobot.attack(groups[0][2])
                                     attack_attempt = True
                                 else:
-                                    print(f"{groups[0][2].name} is dead!")
-                        else:
-                            print(f"{dinobot.name} {attack_succeed_or_fail}")
-                        if groups[0][0].health == 0 and groups[0][1].health == 0 and groups[0][2].health == 0:
-                            self.fleet.heal
-                            attack_attempt = True
-                            continue
+                                    self.p1_group.health -= 100
+                                    if groups[0][0].health > 0 or groups[0][1].health > 0 or groups[0][2].health > 0: 
+                                        print("Target not available")
+                                    else:
+                                        break
+                            else:
+                                print(f"{dinobot.name} {attack_succeed_or_fail}")
+                                attack_attempt = True
+                    if self.p1_group.health == 0 or self.p2_group.health == 0:
+                        break
+                if self.p1_group.health == 0 or self.p2_group.health == 0:
+                    break
+            if self.p1_group.health == 0 or self.p2_group.health == 0:
+                break
 
     def battle_phase(self):
-        self.choose_enemy_hit()
+        has_health = True
+        while has_health == True:
+            if (self.fleet.health == 0) or (self.herd.health == 0):
+                has_health = False
+                break
+            self.choose_enemy_hit()
 
     def display_winner(self):
         if self.fleet.health == 0:
